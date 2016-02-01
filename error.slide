@@ -1,0 +1,69 @@
+Error in Go
+error handling and Go
+2 Feb 2016
+
+Weerasak Chongnguluam
+Gopher at Sprint3r
+singpor@gmail.com
+@iporsut
+
+* Error
+
+* Agenda
+
+- error in unix
+- error in go
+- error type
+- errors are values
+
+* Error in Unix
+
+- stdin
+- stdout
+- stderr
+
+* Error in Go
+
+.play demo1/demo1.go /^func main/,/^}/
+
+* Error type
+
+  type error interface {
+          Error() string
+  }
+
+  // errorString is a trivial implementation of error.
+  type errorString struct {
+          s string
+  }
+
+  func (e *errorString) Error() string {
+          return e.s
+  }
+
+  // New returns an error that formats as the given text.
+  func New(text string) error {
+          return &errorString{text}
+  }
+
+  
+
+* Errors are values
+
+  scanner := bufio.NewScanner(input)
+  for scanner.Scan() {
+          token := scanner.Text()
+          // process token
+  }
+  if err := scanner.Err(); err != nil {
+         // process the error
+  }
+
+  b := bufio.NewWriter(fd)
+  b.Write(p0[a:b])
+  b.Write(p1[c:d])
+  b.Write(p2[e:f])
+  // and so on
+  if b.Flush() != nil {
+          return b.Flush()
+  }
